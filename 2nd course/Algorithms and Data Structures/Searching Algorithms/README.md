@@ -4,7 +4,7 @@
 	- Binary search
 	- Doubling search
 
-Russian comments are provided. 
+*Russian comments are provided.*
     
 ____
 
@@ -14,4 +14,4 @@ ____
 	- Бинарный поиск
 	- Экспоненциальный поиск
 
-Комментарии на русском предоставляются.
+*Комментарии на русском предоставляются.*

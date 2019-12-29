@@ -1,19 +1,19 @@
-#Sorting algorithms in C++
+# Sorting algorithms in C++
 
 	- Bucket sort
 	- Insertion sort
 	- Merge sort
 	- Selection sort
 
-Russian comments are provided. 
+*Russian comments are provided.*
 
 ____
 
-#Алгоритмы сортировки на C++
+# Алгоритмы сортировки на C++
 
 	- Блочная сортировка
 	- Сортировка вставками
 	- Сортировка слиянием
 	- Сортировка выбором
 
-Комментарии на русском предоставляются.
+*Комментарии на русском предоставляются.*

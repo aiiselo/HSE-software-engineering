@@ -1,0 +1,19 @@
+Sum of scores where -1=<neutral<=1
+Good - 323 - 3.23%
+Bad - 633 - 6.33%
+Neutral - 9044 - 90.44%
+
+Proportion rule
+Good - 11 - 0.11%
+Bad - 43 - 0.43%
+Neutral - 9946 - 99.46%
+
+Sum of scores where 0=<neutral<1
+Good - 1742 - 17.42%
+Bad - 2623 - 26.23%
+Neutral - 5635 - 56.35%
+
+Sum of scores where -2=<neutral<1
+Good - 1742 - 17.42%
+Bad - 174 - 1.74%
+Neutral - 8084 - 80.84%

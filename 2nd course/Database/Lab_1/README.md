@@ -24,6 +24,10 @@
 
 ## Демонстрация работы
 
+Продемонстрирую основные команды "Вставить" и "Удалить", остальные сложно передать через скриншоты. 
 
+![Image before add](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_1/screenshots/Снимок%20экрана%202020-05-07%20в%2004.34.42.png)
+![Image after add](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_1/screenshots/Снимок%20экрана%202020-05-07%20в%2004.34.54.png)
 
-
+![Image before delete](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_1/screenshots/Снимок%20экрана%202020-05-07%20в%2004.35.09.png)
+![Image after delete](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_1/screenshots/Снимок%20экрана%202020-05-07%20в%2004.35.16.png)

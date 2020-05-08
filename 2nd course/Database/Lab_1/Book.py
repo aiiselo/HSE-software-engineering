@@ -29,6 +29,13 @@ class DB(object):
     def get_table_records(self):
         return list(self.table.values())
 
+    def get_records_by_key(self, key):
+        book_ids = set(self.field[key]).copy()
+        res = []
+        for book_id in book_ids:
+            res.append(self.table[book_id])
+        return res
+
     def add_record(self, book_id, record):  # добавление записи в базу данных с проверкой уникальности
         if self.table.get(book_id) is None:
             self.table[book_id] = record

@@ -44,4 +44,4 @@
 
 График немного пьян, но вроде все в порядке: 
 
-![image plot](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_1/screenshots/Снимок%экрана%2020-05-08%в% 07.26.03.png)
+![image plot](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_1/screenshots/Снимок%20экрана%202020-05-08%20в%2007.26.03.png)

@@ -136,7 +136,8 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     def clear_database(self):
         try:
-            self.clear_all()
+            self.clear_book()
+            self.clear_publisher()
         except Exception as ex:
             self.message("Error during clearing data!", traceback.format_exc())
 
@@ -188,14 +189,14 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         if not self.edit_flag:
             try:
                 if item.column() == 1:
-                    self.db.update_book_by_title(self.book_table(item.row(), 1), item.text())
+                    self.db.update_book_by_title(item.text(), self.book_table(item.row(), 1).text())
                 elif item.column() == 2:
-                    self.db.update_book_by_author(self.book_table(item.row(), 2), item.text())
+                    self.db.update_book_by_author(item.text(), self.book_table(item.row(), 2).text())
                 elif item.column() == 3:
-                    self.db.update_book_by_publisher(self.book_table(item.row(), 3), item.text())
-                    self.data_books = self.db.get_books()
-                    self.set_data(self.book_table, self.columns_books, self.data_books)
-            except Exception as ex:
+                    self.db.update_book_by_publisher(item.text(), self.book_table(item.row(), 3).text())
+                self.data_books = self.db.get_books()
+                self.set_data(self.book_table, self.columns_books, self.data_books)
+            except Exception:
                 self.message("Error during data update!", traceback.format_exc())
 
     def update_publishers(self, item):
@@ -205,10 +206,11 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
                     self.db.update_publisher_by_name(item.text(), self.book_table.item(item.row(), 0).text())
                 elif item.column() == 1:
                     self.db.update_publisher_by_tel(item.text(), self.publisher_table.item(item.row(), 0).text())
-                    self.data_publishers = self.db.get_publishers()
-                    self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
-            except Exception as ex:
-                    self.message("Error during data update!", traceback.format_exc())
+                self.data_publishers = self.db.get_publishers()
+                self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
+            except Exception:
+                print(traceback.format_exc())
+                self.message("Error during data update!", traceback.format_exc())
 
     def search_by_author(self):
         try:

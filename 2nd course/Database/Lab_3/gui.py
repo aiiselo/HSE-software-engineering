@@ -203,7 +203,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         if not self.edit_flag:
             try:
                 if item.column() == 0:
-                    self.db.update_publisher_by_name(item.text(), self.publisher_table.item(item.row(), 0).text())
+                    self.db.update_publisher_by_name(item.text(), self.data_publishers[item.row()]['name'])
                 elif item.column() == 1:
                     self.db.update_publisher_by_tel(item.text(), self.publisher_table.item(item.row(), 0).text())
                 self.data_publishers = self.db.get_publishers()

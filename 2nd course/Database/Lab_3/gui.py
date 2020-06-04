@@ -189,11 +189,11 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         if not self.edit_flag:
             try:
                 if item.column() == 1:
-                    self.db.update_book_by_title(item.text(), self.book_table(item.row(), 1).text())
+                    self.db.update_book_by_title(item.text(), self.book_table.item(item.row(), 0).text())
                 elif item.column() == 2:
-                    self.db.update_book_by_author(item.text(), self.book_table(item.row(), 2).text())
+                    self.db.update_book_by_author(item.text(), self.book_table.item(item.row(), 0).text())
                 elif item.column() == 3:
-                    self.db.update_book_by_publisher(item.text(), self.book_table(item.row(), 3).text())
+                    self.db.update_book_by_publisher(item.text(), self.book_table.item(item.row(), 0).text())
                 self.data_books = self.db.get_books()
                 self.set_data(self.book_table, self.columns_books, self.data_books)
             except Exception:
@@ -203,7 +203,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         if not self.edit_flag:
             try:
                 if item.column() == 0:
-                    self.db.update_publisher_by_name(item.text(), self.book_table.item(item.row(), 0).text())
+                    self.db.update_publisher_by_name(item.text(), self.publisher_table.item(item.row(), 0).text())
                 elif item.column() == 1:
                     self.db.update_publisher_by_tel(item.text(), self.publisher_table.item(item.row(), 0).text())
                 self.data_publishers = self.db.get_publishers()

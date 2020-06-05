@@ -180,3 +180,26 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         except Exception as ex:
             self.app.message("Error during data search!", str(ex))
 
+    def update_books(self, item):
+        try:
+            if item.column() == 1:
+                self.db.update_book_by_title(self.book_table[item.row()]['Title'], item.text())
+            elif item.column() == 2:
+                self.db.update_book_by_author(self.book_table[item.row()]['Author'], item.text())
+            elif item.column() == 3:
+                self.db.update_book_by_publisher(self.book_table[item.row()]['Publisher'], item.text())
+            self.data_books = self.db.get_books()
+            self.set_data(self.book_table, self.columns_books, self.data_books)
+        except Exception as ex:
+            self.app.message("Error during data update!", str(ex))
+
+    def update_publishers(self, item):
+        try:
+            if item.column() == 0:
+                self.db.update_publisher_by_name(self.book_table[item.row()]['Name'], item.text())
+            elif item.column() == 1:
+                self.db.update_publisher_by_tel(self.publisher_table[item.row()]['Telephone number'], item.text())
+            self.data_publishers = self.db.get_publishers()
+            self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
+        except Exception as ex:
+            self.app.message("Error during data update!", str(ex))

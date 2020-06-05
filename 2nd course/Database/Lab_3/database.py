@@ -18,8 +18,8 @@ class Database(object):
         self.connection.close()
         self.connectDB(self.dbname)
         if flag is None:
-            with self.connection as cursor_:
-                cursor_.execute(open("commands.sql", "r").read())
+            with self.connection as cursor:
+                cursor.execute(open("commands.sql", "r").read())
 
     def connectDB(self, name):
         self.connection = ps.connect(

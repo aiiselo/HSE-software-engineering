@@ -19,6 +19,7 @@ class connectWin(QtWidgets.QMainWindow, connectWindow.Ui_MainWindow):
             self.app.connect(self.database_name.text())
             self.close()
         except Exception as ex:
+            print(str(ex))
             self.app.message("There is no such database!", str(ex))
 
 
@@ -56,6 +57,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             self.set_data(self.book_table, self.columns_books, self.data_books)
             self.set_data(self.publishers_table, self.columns_publishers, self.data_publishers)
         except Exception as ex:
+            print(str(ex))
             self.app.message("Error during connect!", str(ex))
 
     def set_data(self, table, columns, data):

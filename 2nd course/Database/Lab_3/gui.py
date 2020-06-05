@@ -16,11 +16,10 @@ class connectWin(QtWidgets.QMainWindow, connectWindow.Ui_MainWindow):
 
     def connect_to_database(self):
         try:
-            self.app.connect(self.database_name)
+            self.app.connect(self.database_name.text())
             self.close()
         except Exception as ex:
             self.app.message("There is no such database!", str(ex))
-            self.close()
 
 
 class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
@@ -29,6 +28,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.db = None
         self.setupUi(self)
         self.connectionWindow = connectWin(self)
+        self.connectionWindow.show()
         self.add_to_book_button.clicked.connect(self.add_book_record) #
         self.add_to_publisher_button.clicked.connect(self.add_publisher_record) #
         self.clear_book_button.clicked.connect(self.clear_book) #

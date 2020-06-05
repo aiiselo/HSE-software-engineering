@@ -1,5 +1,5 @@
 import psycopg2 as ps
-import sql
+from psycopg2 import sql
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 
@@ -10,19 +10,16 @@ class Database(object):
         self.password = 'mypass'
         self.host = 'localhost'
         self.port = '5432'
-        f = open("commands.sql", 'r')
-        self.commands = f.read()
         self.connectDB("postgres")
         self.cursor.execute("SELECT * FROM pg_catalog.pg_database WHERE datname = %s", (self.dbname,))
         flag = self.cursor.fetchone()
-        if flag is not None:
-            self.cursor.execute(sql.SQL(f"CREATE DATABASE {self.dbname}"))
-            self.connection.close()
-            self.connectDB(self.dbname)
-            self.cursor.execute(self.commands)
-        else:
-            self.connection.close()
-            self.connectDB( self.dbname )
+        if flag is None:
+            self.cursor.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(self.dbname)))
+        self.connection.close()
+        self.connectDB(self.dbname)
+        if flag is None:
+            with self.connection as cursor_:
+                cursor_.execute(open("commands.sql", "r").read())
 
     def connectDB(self, name):
         self.connection = ps.connect(

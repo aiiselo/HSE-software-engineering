@@ -1,25 +1,4 @@
-create extension if not exists dblink;
-create or replace function create_db(in dbname text, in owner_ text) returns void as $$
-    begin
-        if not exists (select from pg_database where datname = dbname) then
-            perform dblink_exec(
-                'dbname=' || dbname,
-                'create database '+dbname+' with owner '+owner_
-          );
-        end if;
-    end;
-$$ language plpgsql;
-
-create or replace function drop_db(in dbname text) returns void as $$
-    begin
-        perform dblink_exec(
-            'dbname=' || dbname,
-            'drop database if exists '+dbname
-        );
-    end;
-$$ language plpgsql;
-
-create function "Create database"()
+create function create_database()
 	returns void as $$
 	begin
 		create table if not exists "Publisher"(
@@ -169,14 +148,14 @@ create function update_book_by_title(in newtitle text, in id_ integer)
 		end;
 	$$;
 
-create function update_publisher_by_author(in newauthor text, in id_ integer)
+create function update_book_by_author(in newauthor text, in id_ integer)
 	returns void language plpgsql as $$
 		begin
 			update "Book" set author = newauthor where id = id_;
 		end;
 	$$;
 
-create function update_publisher_by_publisher(in newpublisher text, in id_ integer)
+create function update_book_by_publisher(in newpublisher text, in id_ integer)
 	returns void language plpgsql as $$
 		begin
 			update "Book" set publisher = newpublisher where id = id_;

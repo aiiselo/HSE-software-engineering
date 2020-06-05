@@ -39,15 +39,14 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.clear_all.clicked.connect(self.clear_database) #
         # self.actionNew.triggered.connect(self.create_new_database)
         # self.actionOpen.triggered.connect(self.open_database)
-        # self.tableWidget.itemChanged.connect(self.update_records)
-        self.columns_publisher = ['Name', 'Telephone number', 'Last update']
+        self.columns_publishers = ['Name', 'Telephone number', 'Last update']
         self.columns_books = ['ID', 'Title', 'Author', 'Publisher']
-        # self.book_table.itemChanged.connect(self.update_books)
-        # self.publisher_table.itemChanged.connect(self.update_publishers)
+        self.book_table.itemChanged.connect(self.update_books)
+        self.publisher_table.itemChanged.connect(self.update_publishers)
         self.book_table.setColumnCount(4)
         self.publisher_table.setColumnCount(4)
         self.book_table.setHorizontalHeaderLabels(self.columns_books)
-        self.publisher_table.setHorizontalHeaderLabels(self.columns_publisher)
+        self.publisher_table.setHorizontalHeaderLabels(self.columns_publishers)
 
     def connect(self, dbname):
         self.db = Database(dbname)
@@ -55,14 +54,14 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             self.data_books = self.db.get_books()
             self.data_publishers = self.db.get_publishers()
             self.set_data(self.book_table, self.columns_books, self.data_books)
-            self.set_data(self.publishers_table, self.columns_publishers, self.data_publishers)
+            self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
         except Exception as ex:
             print(str(ex))
             self.app.message("Error during connect!", str(ex))
 
     def set_data(self, table, columns, data):
         try:
-            if len(data) > 0 or data is not None:
+            if data is not None:
                 for i, row in enumerate(data):
                     for j, col in enumerate(columns):
                         table.setItem(i, j, QTableWidgetItem(str(row[col])))
@@ -105,13 +104,14 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             if name != "" and telephone != "" and self.db is not None:
                 self.db.add_to_publisher(name, telephone)
                 self.data_publishers = self.db.get_publishers()
-                self.set_data(self.publisher_table, self.columns_publisher, self.data_publishers)
+                self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
                 self.publisher_name.clear()
                 self.publisher_telephone.clear()
             else:
                 self.message("Check if all fields (name, telephone) are filled or if you have connected to db")
 
         except Exception as ex:
+            print(str(ex))
             self.app.message( "Error during additing data!", str( ex ) )
 
     def clear_book(self):
@@ -126,7 +126,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         try:
             self.db.clear_publishers()
             self.data_publishers = self.db.get_publishers()
-            self.set_data(self.publisher_table, self.columns_publisher, self.data_publishers)
+            self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
         except Exception as ex:
             self.app.message("Error during clearing data!", str(ex))
 
@@ -142,7 +142,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
                 self.db.delete_database()
                 self.data_publishers = []
                 self.data_books = []
-                self.set_data(self.publisher_table, self.columns_publisher, self.data_publishers)
+                self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
                 self.set_data(self.book_table, self.columns_books, self.data_books)
                 self.db = None
                 self.connectionWindow = None
@@ -170,11 +170,11 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             author = self.data_to_delete.text()
             if author != "" and self.db is not None:
                 self.set_data(self.book_table, self.columns_books, self.db.find_book_by_author(author))
-                self.set_data(self.publisher_table, self.columns_publisher, self.db.find_publisher(author))
+                self.set_data(self.publisher_table, self.columns_publishers, self.db.find_publisher(author))
                 self.data_to_delete.clear()
             if author == "":
                 self.set_data(self.book_table, self.columns_books, self.data_books)
-                self.set_data(self.publisher_table, self.columns_publisher, self.data_publishers)
+                self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
             else:
                 self.message("Check if you have connected to db")
         except Exception as ex:

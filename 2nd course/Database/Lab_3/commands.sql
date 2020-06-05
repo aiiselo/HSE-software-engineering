@@ -1,6 +1,5 @@
 create function create_database()
-	returns void as $$
-	begin
+	returns void language sql as $$
 		create table if not exists "Publisher"(
 			name text primary key,
 			telephone text,
@@ -26,10 +25,9 @@ create function create_database()
 
 		create trigger trigger_update before update on "Publisher" 
 			for row execute procedure update_time();
-	end;
-$$ language plpgsql;
+$$;
 
-select "Create database"();
+select "create_database"();
 
 create function get_publishers()
 	returns json language plpgsql as $$

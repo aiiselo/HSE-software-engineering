@@ -36,15 +36,15 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.delete_button.clicked.connect(self.delete_by_author) #
         self.delete_database_button.clicked.connect(self.delete_database) #
         self.clear_all.clicked.connect(self.clear_database) #
-        self.actionNew.triggered.connect(self.create_new_database)
-        self.actionOpen.triggered.connect(self.open_database)
-        self.tableWidget.itemChanged.connect(self.update_records)
+        # self.actionNew.triggered.connect(self.create_new_database)
+        # self.actionOpen.triggered.connect(self.open_database)
+        # self.tableWidget.itemChanged.connect(self.update_records)
         self.columns_publisher = ['Name', 'Telephone number', 'Last update']
         self.columns_books = ['ID', 'Title', 'Author', 'Publisher']
-        self.book_table.itemChanged.connect(self.update_books)
-        self.publisher_table.itemChanged.connect(self.update_publishers)
+        # self.book_table.itemChanged.connect(self.update_books)
+        # self.publisher_table.itemChanged.connect(self.update_publishers)
         self.book_table.setColumnCount(4)
-        self.publisher_table(4)
+        self.publisher_table.setColumnCount(4)
         self.book_table.setHorizontalHeaderLabels(self.columns_books)
         self.publisher_table.setHorizontalHeaderLabels(self.columns_publisher)
 

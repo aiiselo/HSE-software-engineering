@@ -200,10 +200,10 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         if not self.edit_flag:
             try:
                 if item.column() == 0:
-                    self.db.update_publisher_by_name(self.book_table(item.row(), 0), item.text())
+                    self.db.update_publisher_by_name(item.text(), self.book_table.item(item.row(), 0).text())
                 elif item.column() == 1:
-                    self.db.update_publisher_by_tel(self.publisher_table(item.row(), 1), item.text())
+                    self.db.update_publisher_by_tel(item.text(), self.publisher_table.item(item.row(), 0).text())
                     self.data_publishers = self.db.get_publishers()
                     self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
             except Exception as ex:
-                self.message("Error during data update!", traceback.format_exc())
+                    self.message("Error during data update!", traceback.format_exc())

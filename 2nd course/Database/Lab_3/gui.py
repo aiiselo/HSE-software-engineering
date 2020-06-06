@@ -34,8 +34,10 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.clear_publisher_button.clicked.connect(self.clear_publisher)  #
         self.delete_button.clicked.connect(self.delete_by_author)  #
         self.delete_database_button.clicked.connect(self.delete_database)  #
+        self.search_button.clicked.connect(self.search_by_author)
         self.clear_all.clicked.connect(self.clear_database)
         self.actionOpen.triggered.connect(self.connectionWindow.show)
+        self.actionDelete.triggered.connect(self.delete_record)
         self.columns_publishers = ['name', 'telephone', 'lastUpdate']
         self.columns_books = ['id', 'title', 'author', 'publisher']
         self.book_table.itemChanged.connect(self.update_books)
@@ -207,3 +209,35 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
                     self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
             except Exception as ex:
                     self.message("Error during data update!", traceback.format_exc())
+
+    def search_by_author(self):
+        try:
+            author = self.data_to_delete.text()
+            if author != "" and self.db is not None:
+                self.set_data(self.book_table, self.columns_books, self.db.find_book_by_author(author))
+                self.set_data(self.publisher_table, self.columns_publishers, self.db.find_publisher(author))
+                self.data_to_delete.clear()
+                self.data_to_delete.clear()
+            else:
+                self.set_data(self.book_table, self.columns_books, self.data_books)
+                self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
+        except Exception:
+            self.message("Error during data search!", traceback.format_exc())
+
+    def delete_record(self):
+        if len(self.publisher_table.selectedIndexes()):
+            try:
+                for i in self.publisher_table.selectedIndexes():
+                    self.db.delete_publisher_record(self.data_publishers[i.row()]['name'])
+                    self.data_publishers = self.db.get_publishers()
+                    self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
+            except Exception:
+                self.message("Error during data delete!", traceback.format_exc())
+        else:
+            try:
+                for i in self.book_table.selectedIndexes():
+                    self.db.delete_book_record(self.data_books[i.row()]['id'] )
+                    self.data_books = self.db.get_books()
+                    self.set_data(self.book_table, self.columns_books, self.data_books)
+            except Exception:
+                self.message("Error during data delete!", traceback.format_exc())

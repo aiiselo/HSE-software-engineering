@@ -1,15 +1,15 @@
 create function create_database()
 	returns void language sql as $$
 		create table if not exists "Publisher"(
-			name text primary key,
-			telephone text,
-			lastUpdate timestamptz default current_timestamp
+			name text primary key not null,
+			telephone text not null,
+			lastUpdate timestamptz default current_timestamp not null
 		);
 		create table if not exists "Book"(
 			id integer primary key not null generated always as identity,
-			title text,
-			author text,
-			publisher text
+			title text not null,
+			author text not null,
+			publisher text not null
 		);
 		create index if not exists author on "Book" (author);
 

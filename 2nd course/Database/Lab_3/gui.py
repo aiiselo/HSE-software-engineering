@@ -1,5 +1,4 @@
-
-
+import traceback
 import design
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
@@ -10,7 +9,7 @@ import connectWindow
 class connectWin(QtWidgets.QMainWindow, connectWindow.Ui_MainWindow):
     def __init__(self, app):
         super().__init__()
-        self.setupUi( self )
+        self.setupUi(self)
         self.app = app
         self.connect_button.clicked.connect(self.connect_to_database)
 
@@ -19,8 +18,8 @@ class connectWin(QtWidgets.QMainWindow, connectWindow.Ui_MainWindow):
             self.app.connect(self.database_name.text())
             self.close()
         except Exception as ex:
-            print(str(ex))
-            self.app.message("There is no such database!", str(ex))
+            print(traceback.format_exc())
+            self.message("There is no such database!", traceback.format_exc())
 
 
 class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
@@ -29,24 +28,23 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.db = None
         self.setupUi(self)
         self.connectionWindow = connectWin(self)
-        self.connectionWindow.show()
-        self.add_to_book_button.clicked.connect(self.add_book_record) #
-        self.add_to_publisher_button.clicked.connect(self.add_publisher_record) #
-        self.clear_book_button.clicked.connect(self.clear_book) #
-        self.clear_publisher_button.clicked.connect(self.clear_publisher) #
-        self.delete_button.clicked.connect(self.delete_by_author) #
-        self.delete_database_button.clicked.connect(self.delete_database) #
-        self.clear_all.clicked.connect(self.clear_database) #
-        # self.actionNew.triggered.connect(self.create_new_database)
-        # self.actionOpen.triggered.connect(self.open_database)
-        self.columns_publishers = ['Name', 'Telephone number', 'Last update']
-        self.columns_books = ['ID', 'Title', 'Author', 'Publisher']
+        self.add_to_book_button.clicked.connect(self.add_book_record)  #
+        self.add_to_publisher_button.clicked.connect(self.add_publisher_record)  #
+        self.clear_book_button.clicked.connect(self.clear_book)  #
+        self.clear_publisher_button.clicked.connect(self.clear_publisher)  #
+        self.delete_button.clicked.connect(self.delete_by_author)  #
+        self.delete_database_button.clicked.connect(self.delete_database)  #
+        self.clear_all.clicked.connect(self.clear_database)
+        self.actionOpen.triggered.connect(self.connectionWindow.show)
+        self.columns_publishers = ['name', 'telephone', 'lastUpdate']
+        self.columns_books = ['id', 'title', 'author', 'publisher']
         self.book_table.itemChanged.connect(self.update_books)
         self.publisher_table.itemChanged.connect(self.update_publishers)
         self.book_table.setColumnCount(4)
-        self.publisher_table.setColumnCount(4)
+        self.publisher_table.setColumnCount(3)
         self.book_table.setHorizontalHeaderLabels(self.columns_books)
         self.publisher_table.setHorizontalHeaderLabels(self.columns_publishers)
+        self.edit_flag = False
 
     def connect(self, dbname):
         self.db = Database(dbname)
@@ -56,20 +54,23 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             self.set_data(self.book_table, self.columns_books, self.data_books)
             self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
         except Exception as ex:
-            print(str(ex))
-            self.app.message("Error during connect!", str(ex))
+            print(traceback.format_exc())
+            self.message("Error during connect!", traceback.format_exc())
 
     def set_data(self, table, columns, data):
+        self.edit_flag = True
         try:
             if data is not None:
+                table.setRowCount(len(data))
                 for i, row in enumerate(data):
                     for j, col in enumerate(columns):
                         table.setItem(i, j, QTableWidgetItem(str(row[col])))
-                table.setRowCount(len(data))
+
             else:
                 table.setRowCount(0)
         except Exception as ex:
-            self.app.message("Error during setting data!", str(ex))
+            self.message("Error during setting data!", traceback.format_exc())
+        self.edit_flag = False
 
     def message(self, error, detailed_error="¯\_(ツ)_/¯", icon=QMessageBox.Warning):
         msg = QMessageBox()
@@ -93,9 +94,10 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
                 self.book_author.clear()
                 self.book_publisher.clear()
             else:
-                self.message("Check if all fields (title, author, publisher) are filled or if you have connected to db")
+                self.message(
+                    "Check if all fields (title, author, publisher) are filled or if you have connected to db")
         except Exception as ex:
-            self.app.message("Error during additing data!", str(ex))
+            self.message("Error during additing data!", traceback.format_exc())
 
     def add_publisher_record(self):
         try:
@@ -111,8 +113,8 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
                 self.message("Check if all fields (name, telephone) are filled or if you have connected to db")
 
         except Exception as ex:
-            print(str(ex))
-            self.app.message( "Error during additing data!", str( ex ) )
+            print(traceback.format_exc())
+            self.message("Error during additing data!", str(ex))
 
     def clear_book(self):
         try:
@@ -120,7 +122,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             self.data_books = self.db.get_books()
             self.set_data(self.book_table, self.columns_books, self.data_books)
         except Exception as ex:
-            self.app.message("Error during clearing data!", str(ex))
+            self.message("Error during clearing data!", traceback.format_exc())
 
     def clear_publisher(self):
         try:
@@ -128,13 +130,13 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             self.data_publishers = self.db.get_publishers()
             self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
         except Exception as ex:
-            self.app.message("Error during clearing data!", str(ex))
+            self.message("Error during clearing data!", traceback.format_exc())
 
     def clear_database(self):
         try:
             self.clear_all()
         except Exception as ex:
-            self.app.message("Error during clearing data!", str(ex))
+            self.message("Error during clearing data!", traceback.format_exc())
 
     def delete_database(self):
         try:
@@ -150,7 +152,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             else:
                 self.message("Check if you have connected to db")
         except Exception as ex:
-            self.app.message("Error during deleting database!", str(ex))
+            self.message("Error during deleting database!", traceback.format_exc())
 
     def delete_by_author(self):
         try:
@@ -163,7 +165,7 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             else:
                 self.message("Check if all fields (author) are filled or if you have connected to db")
         except Exception as ex:
-            self.app.message("Error during deleting data!", str(ex))
+            self.message("Error during deleting data!", traceback.format_exc())
 
     def find_by_author(self):
         try:
@@ -178,28 +180,30 @@ class App(QtWidgets.QMainWindow, design.Ui_MainWindow):
             else:
                 self.message("Check if you have connected to db")
         except Exception as ex:
-            self.app.message("Error during data search!", str(ex))
+            self.message("Error during data search!", traceback.format_exc())
 
     def update_books(self, item):
-        try:
-            if item.column() == 1:
-                self.db.update_book_by_title(self.book_table[item.row()]['Title'], item.text())
-            elif item.column() == 2:
-                self.db.update_book_by_author(self.book_table[item.row()]['Author'], item.text())
-            elif item.column() == 3:
-                self.db.update_book_by_publisher(self.book_table[item.row()]['Publisher'], item.text())
-            self.data_books = self.db.get_books()
-            self.set_data(self.book_table, self.columns_books, self.data_books)
-        except Exception as ex:
-            self.app.message("Error during data update!", str(ex))
+        if not self.edit_flag:
+            try:
+                if item.column() == 1:
+                    self.db.update_book_by_title(self.book_table(item.row(), 1), item.text())
+                elif item.column() == 2:
+                    self.db.update_book_by_author(self.book_table(item.row(), 2), item.text())
+                elif item.column() == 3:
+                    self.db.update_book_by_publisher(self.book_table(item.row(), 3), item.text())
+                    self.data_books = self.db.get_books()
+                    self.set_data(self.book_table, self.columns_books, self.data_books)
+            except Exception as ex:
+                self.message("Error during data update!", traceback.format_exc())
 
     def update_publishers(self, item):
-        try:
-            if item.column() == 0:
-                self.db.update_publisher_by_name(self.book_table[item.row()]['Name'], item.text())
-            elif item.column() == 1:
-                self.db.update_publisher_by_tel(self.publisher_table[item.row()]['Telephone number'], item.text())
-            self.data_publishers = self.db.get_publishers()
-            self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
-        except Exception as ex:
-            self.app.message("Error during data update!", str(ex))
+        if not self.edit_flag:
+            try:
+                if item.column() == 0:
+                    self.db.update_publisher_by_name(self.book_table(item.row(), 0), item.text())
+                elif item.column() == 1:
+                    self.db.update_publisher_by_tel(self.publisher_table(item.row(), 1), item.text())
+                    self.data_publishers = self.db.get_publishers()
+                    self.set_data(self.publisher_table, self.columns_publishers, self.data_publishers)
+            except Exception as ex:
+                self.message("Error during data update!", traceback.format_exc())

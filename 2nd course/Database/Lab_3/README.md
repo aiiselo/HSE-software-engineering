@@ -30,7 +30,7 @@
 
 - Я заранее создала пользователя myuser, который имеет доступ только к созданию базы данных. Подключаюсь к БД по localhost.
 
-[user](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.07.17.png)
+[usercreate](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.07.17.png)
 
 [4]     Должен существовать как минимум один индекс, созданный вами по выбранному текстовому не ключевому полю;
 

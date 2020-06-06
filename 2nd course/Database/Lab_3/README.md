@@ -77,4 +77,15 @@ create trigger trigger_update before update on "Publisher"
  - main.py (запуск проекта)
  
  ### 6. Вид приложения:
+ 
+ Стартовое окно (открывается при Cmd+O)
 
+[startWindow](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.23.18.png)
+
+Основное окно (открывается после введения имени бд)
+
+[defaultWindow](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.23.28.png)
+
+### 7. Демонтрация работы: 
+
+Ссылка на скачивание видео будет чуть позже ヽ(・∀・)ﾉ 

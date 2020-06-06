@@ -88,4 +88,4 @@ create trigger trigger_update before update on "Publisher"
 
 ### 7. Демонтрация работы: 
 
-Ссылка на скачивание видео будет чуть позже ヽ(・∀・)ﾉ 
+[Перейти к просмотру видео с демонстрацией работы](https://youtu.be/Gz5Ij_Zs_i8)

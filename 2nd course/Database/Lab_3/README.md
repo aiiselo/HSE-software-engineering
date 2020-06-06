@@ -30,7 +30,7 @@
 
 - Я заранее создала пользователя myuser, который имеет доступ только к созданию базы данных. Подключаюсь к БД по localhost.
 
-[usercreate](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.07.17.png)
+![usercreate](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.07.17.png)
 
 [4]     Должен существовать как минимум один индекс, созданный вами по выбранному текстовому не ключевому полю;
 
@@ -80,11 +80,11 @@ create trigger trigger_update before update on "Publisher"
  
  Стартовое окно (открывается при Cmd+O)
 
-[startWindow](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.23.18.png)
+![startWindow](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.23.18.png)
 
 Основное окно (открывается после введения имени бд)
 
-[defaultWindow](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.23.28.png)
+![defaultWindow](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-06%20в%2004.23.28.png)
 
 ### 7. Демонтрация работы: 
 

@@ -11,7 +11,7 @@
 
 Схема БД: 
 
-![schema](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Снимок%20экрана%202020-06-05%20в%2011.14.55.png)
+![schema](https://github.com/aiiselo/HSE-software-engineering/blob/master/2nd%20course/Database/Lab_3/screenshots/Дизайн%20без%20названия-3.png)
 
 ### 2.    Реализовать реляционную БД для своей предметной области (все таблицы должны быть не менее чем в третьей нормальной форме)
 
